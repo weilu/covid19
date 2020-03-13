@@ -14,5 +14,12 @@ for key in ('Confirmed', 'Deaths', 'Recovered'):
         data['time'] = range(0, len(hubei_data))
     data[name_map[key]] = hubei_data
 
+## back out the actual infected from mortality rate
+# raw_data = pd.DataFrame(data=data)
+# mortality_rates = raw_data['D'] / raw_data['I']
+# stable_mortality_rate = mortality_rates[-5:].values.mean()
+# actual_infected = raw_data['D'] / stable_mortality_rate
+# data['I'] = actual_infected.astype('long').values
+
 model_data = pd.DataFrame(data=data)
 model_data.to_csv('hubei.txt', sep='\t', encoding='utf-8', index=False)

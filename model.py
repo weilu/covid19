@@ -3,30 +3,23 @@ from stimator import read_model
 mdl = """
 title pandemic SEIVD model
 
-#reactions (with stoichiometry and rate)
-exposure: S -> E, rate = tao * S
-infection: E -> I, rate = sigma * E
-recovery: I -> V, rate = gamma * I
-death: I -> D, rate = alpha * I
-relapse: V -> S, rate = v * V
+#differentials, assume E(t) = I(t) and no replapse for simplification
+
+I' = c * (1 - I/68656) * I - alpha * I
+V' = gamma * I
+D' = alpha * I
 
 ## parameters and initial state
 
-# Assume no replapse
-v = 0
+init: (I=444, V=28, D=17)
 
-# https://www.statista.com/statistics/279013/population-in-china-by-region/
-init: (S=59170000, E=0, I=0, V=0, D=0)
-
-
-find tao in [0, 1]
-find sigma in [0, 1]
+find c in [0, 5000]
 find gamma in [0, 1]
 find alpha in [0, 1]
 """
 
 m = read_model(mdl)
-best = m.estimate(['hubei.txt'], names=['I', 'D', 'V'])
+best = m.estimate(['hubei.txt'], names=['I', 'D', 'V'], opt_settings=dict(max_generations=300))
 
 print(best.info())
 best.plot(show=True)
