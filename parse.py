@@ -6,7 +6,7 @@ data = {}
 for key in ('Confirmed', 'Deaths', 'Recovered'):
     df = pd.read_csv(f'data/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-{key}.csv', index_col=(0, 1))
     df.drop(columns=['Lat', 'Long'], inplace=True)
-    time_series = df.T[('Hubei', 'Mainland China')]
+    time_series = df.T[('Hubei', 'China')]
     if np.isnan(time_series[-1]):
         time_series = time_series[0:-1]
     hubei_data = time_series.astype('long').values
