@@ -15,6 +15,8 @@ Promise.all([
   populate_geo_options(confirmed_region_values, '#geo')
   const labels = ['x'].concat(confirmed_region_values)
 
+  const geo_input_ids = ['baseline-geo-choice', 'geo-choice']
+  const current_geo_labels = geo_input_ids.map(id => document.getElementById(id).value)
   const charts_and_data = file_contents.map(function(text, i){
     var rows = d3.csvParseRows(text)
     var counts = rows.map(row => row.slice(4))
@@ -23,8 +25,8 @@ Promise.all([
     var full_plot_data = counts.map((c, i) => [labels[i]].concat(c))
     var default_data = [
       full_plot_data[0],
-      full_plot_data[labels.indexOf('Singapore')],
-      full_plot_data[labels.indexOf('US - Massachusetts')]
+      full_plot_data[labels.indexOf(current_geo_labels[0])],
+      full_plot_data[labels.indexOf(current_geo_labels[1])]
     ]
 
     return [plot_time_series(chart_ids[i], default_data), full_plot_data]
@@ -37,10 +39,15 @@ Promise.all([
   select_els.forEach(el => el.addEventListener('change', e => {
     var label_index = labels.indexOf(el.value)
     if (label_index >= 0) {
+      current_geo_labels[geo_input_ids.indexOf(el.id)] = el.value
+
       charts_and_data.forEach(cd => {
         var chart = cd[0]
         var full_plot_data = cd[1]
-        var plot_data = [full_plot_data[0], full_plot_data[label_index]]
+        var plot_data = [
+          full_plot_data[labels.indexOf(current_geo_labels[0])],
+          full_plot_data[labels.indexOf(current_geo_labels[1])]
+        ]
         chart.load({
           unload: true,
           columns: plot_data
@@ -64,10 +71,8 @@ function formate_date(date_str) {
 }
 
 function populate_geo_options(values, el_selector) {
-  const parent_el = document.querySelector(el_selector)
-  if (parent_el.innerHTML != '') return
-
   const options = values.map(v => '<option value="' + v + '">')
+  const parent_el = document.querySelector(el_selector)
   parent_el.innerHTML = options.join('\n')
 }
 

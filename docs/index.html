@@ -52,8 +52,12 @@ text {
         <div id="confirmed" class="tile"></div>
       </div>
       <div class="tile">
-        <label for="geo-choice">Location:</label>
-        <input autoComplete="on" list="geo" id="geo-choice" name="geo-choice" class="geo-select"/>
+        <label for="baseline-geo-choice">Baseline Location:</label>
+        <input autoComplete="on" list="geo" id="baseline-geo-choice" name="baseline-geo-choice" class="geo-select" value="China - Hubei"/>
+
+        <label for="geo-choice">Comparison Location:</label>
+        <input autoComplete="on" list="geo" id="geo-choice" name="geo-choice" class="geo-select" value="Italy"/>
+
         <datalist id="geo"></datalist>
       </div>
     </div>
