@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>COVID-19 Vizualization & Projection</title>
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+  <link href="c3.min.css" rel="stylesheet">
+</head>
+
+<style>
+body {
+  color: #333;
+  font: 11px "Open Sans", sans-serif;
+}
+
+#header, #content {
+  text-align: center;
+  margin: 50px 0;
+}
+
+div.task {
+  display: inline-block;
+  height: 50vh;
+  max-width: 50vw;
+}
+
+div.task h2{
+  text-align: left;
+}
+
+text {
+  font-family: "Open Sans", sans-serif;
+}
+</style>
+
+<body>
+  <div id='header'>
+    <h1>COVID-19 Visualization & Projection</h1>
+    <h3>Wei Lu</h3>
+  </div>
+  <div id='content'>
+    <h2>Live Update</h2>
+    <div>
+      <label for="geo-choice">Location:</label>
+      <input autoComplete="on" list="geo" id="geo-choice" name="geo-choice" class="geo-select"/>
+      <datalist id="geo"></datalist>
+    </div>
+    <div id="raw" class="task"></div>
+  </div>
+
+  <script src="d3.v5.min.js"></script>
+  <script src="d3-array.min.js"></script>
+  <script src="c3.min.js"></script>
+  <script type="module" src="index.js"></script>
+</body>
+
+</html>
+
+
