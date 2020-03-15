@@ -16,17 +16,23 @@ body {
 
 #header, #content {
   text-align: center;
-  margin: 50px 0;
+  margin: 20px 0;
 }
 
-div.task {
+div.tile {
   display: inline-block;
-  height: 50vh;
-  max-width: 50vw;
+  vertical-align: top;
 }
 
-div.task h2{
-  text-align: left;
+div.tile.large {
+  height: 50vh;
+  width: 60vw;
+}
+
+div.tile.small {
+  margin-top: 60px;
+  height: 30vh;
+  width: 40vw;
 }
 
 text {
@@ -35,18 +41,32 @@ text {
 </style>
 
 <body>
-  <div id='header'>
-    <h1>COVID-19 Visualization & Projection</h1>
-    <h3>Wei Lu</h3>
-  </div>
+  <!-- <div id='header'> -->
+  <!--   <h1>COVID&#45;19 Visualization &#38; Projection</h1> -->
+  <!--   <h3>Wei Lu</h3> -->
+  <!-- </div> -->
   <div id='content'>
-    <h2>Live Update</h2>
-    <div>
-      <label for="geo-choice">Location:</label>
-      <input autoComplete="on" list="geo" id="geo-choice" name="geo-choice" class="geo-select"/>
-      <datalist id="geo"></datalist>
+    <div class="row">
+      <div class="tile large">
+        <h2>Confirmed</h2>
+        <div id="confirmed" class="tile"></div>
+      </div>
+      <div class="tile">
+        <label for="geo-choice">Location:</label>
+        <input autoComplete="on" list="geo" id="geo-choice" name="geo-choice" class="geo-select"/>
+        <datalist id="geo"></datalist>
+      </div>
     </div>
-    <div id="raw" class="task"></div>
+    <div class="row">
+      <div class="tile small">
+        <h2>Dead</h2>
+        <div id="death"></div>
+      </div>
+      <div class="tile small">
+        <h2>Recovered</h2>
+        <div id="recovered"></div>
+      </div>
+    </div>
   </div>
 
   <script src="d3.v5.min.js"></script>
